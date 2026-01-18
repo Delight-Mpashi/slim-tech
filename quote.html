@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Quote | SLIM TECH Solutions</title>
+    <meta name="description" content="Get a free, no-obligation quote for solar installations, electrical services, pump installations, or security systems.">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #FF6B35;
+            --secondary-color: #00A8E8;
+            --dark-color: #2D3748;
+            --light-color: #F7FAFC;
+            --accent-color: #FFD166;
+            --success-color: #06D6A0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-color);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand span {
+            color: var(--primary-color);
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e55a2b;
+            border-color: #e55a2b;
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        .quote-hero {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(0, 168, 232, 0.1) 100%);
+            padding: 80px 0;
+        }
+        
+        .service-option-card {
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+        }
+        
+        .service-option-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-option-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(255, 107, 53, 0.05);
+        }
+        
+        .service-icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .solar-bg {
+            background-color: rgba(255, 107, 53, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .electrical-bg {
+            background-color: rgba(0, 168, 232, 0.1);
+            color: var(--secondary-color);
+        }
+        
+        .pump-bg {
+            background-color: rgba(255, 209, 102, 0.1);
+            color: #e6b400;
+        }
+        
+        .security-bg {
+            background-color: rgba(6, 214, 160, 0.1);
+            color: var(--success-color);
+        }
+        
+        .form-card {
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .progress-bar-custom {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #E2E8F0;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 25%;
+            transition: width 0.5s ease;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #E2E8F0;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .step.completed {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .step-line {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background-color: #E2E8F0;
+            z-index: 1;
+        }
+        
+        .step-line-fill {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            height: 2px;
+            background-color: var(--primary-color);
+            z-index: 1;
+            transition: width 0.5s ease;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.25);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .required:after {
+            content: " *";
+            color: #E53E3E;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .radio-option {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+        
+        .radio-option label {
+            display: block;
+            padding: 15px;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-option input[type="radio"]:checked + label {
+            border-color: var(--primary-color);
+            background-color: rgba(255, 107, 53, 0.05);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .radio-option label:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quote-summary {
+            background-color: var(--light-color);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .confirmation-message {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .confirmation-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: rgba(6, 214, 160, 0.1);
+            color: var(--success-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 3rem;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            border-radius: 8px;
+            padding: 12px 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #1da851;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .quote-hero {
+                padding: 50px 0;
+            }
+            
+            .step-indicator {
+                margin-bottom: 20px;
+            }
+            
+            .step {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .step-line, .step-line-fill {
+                top: 17.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as main site) -->
+      <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-nav">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">SLIM<span>TECH</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Safety</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-primary" href="quote.html">Request a Quote</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="quote-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-5 fw-bold mb-3">Get Your Free Quote</h1>
+                    <p class="lead mb-4">Complete this simple form to receive a personalized, no-obligation quote for your electrical or technology project. Our experts will review your requirements and get back to you within 24 hours.</p>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Form Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <!-- Progress Indicator -->
+                    <div class="step-indicator">
+                        <div class="step active" id="step1">1</div>
+                        <div class="step" id="step2">2</div>
+                        <div class="step" id="step3">3</div>
+                        <div class="step" id="step4">4</div>
+                        <div class="step-line"></div>
+                        <div class="step-line-fill" id="stepLineFill"></div>
+                    </div>
+
+                    <!-- Multi-step Form -->
+                    <div class="form-card p-4 p-md-5">
+                        <form id="quoteForm">
+                            <!-- Step 1: Service Selection -->
+                            <div class="form-step active" id="step1-form">
+                                <h3 class="section-title mb-4">Select Service(s)</h3>
+                                <p class="text-muted mb-4">Choose the service(s) you need. You can select multiple options.</p>
+                                
+                                <div class="row g-4 mb-5">
+                                    <!-- Solar Installations -->
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="service-option-card" data-service="solar">
+                                            <div class="service-icon-circle solar-bg mx-auto">
+                                                <i class="fas fa-sun fa-2x"></i>
+                                            </div>
+                                            <h5 class="text-center mb-2">Solar Installations</h5>
+                                            <p class="text-center text-muted small">Residential & commercial solar solutions</p>
+                                            <div class="form-check text-center mt-3">
+                                                <input class="form-check-input" type="checkbox" id="serviceSolar" name="services[]" value="solar">
+                                                <label class="form-check-label" for="serviceSolar">Select this service</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Electrical Maintenance -->
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="service-option-card" data-service="electrical">
+                                            <div class="service-icon-circle electrical-bg mx-auto">
+                                                <i class="fas fa-bolt fa-2x"></i>
+                                            </div>
+                                            <h5 class="text-center mb-2">Electrical Maintenance</h5>
+                                            <p class="text-center text-muted small">Repairs, upgrades & maintenance</p>
+                                            <div class="form-check text-center mt-3">
+                                                <input class="form-check-input" type="checkbox" id="serviceElectrical" name="services[]" value="electrical">
+                                                <label class="form-check-label" for="serviceElectrical">Select this service</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Pump Installations -->
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="service-option-card" data-service="pump">
+                                            <div class="service-icon-circle pump-bg mx-auto">
+                                                <i class="fas fa-tint fa-2x"></i>
+                                            </div>
+                                            <h5 class="text-center mb-2">Pump Installations</h5>
+                                            <p class="text-center text-muted small">Water pump installation & repair</p>
+                                            <div class="form-check text-center mt-3">
+                                                <input class="form-check-input" type="checkbox" id="servicePump" name="services[]" value="pump">
+                                                <label class="form-check-label" for="servicePump">Select this service</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Security Systems -->
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="service-option-card" data-service="security">
+                                            <div class="service-icon-circle security-bg mx-auto">
+                                                <i class="fas fa-shield-alt fa-2x"></i>
+                                            </div>
+                                            <h5 class="text-center mb-2">Security Systems</h5>
+                                            <p class="text-center text-muted small">Installation & monitoring systems</p>
+                                            <div class="form-check text-center mt-3">
+                                                <input class="form-check-input" type="checkbox" id="serviceSecurity" name="services[]" value="security">
+                                                <label class="form-check-label" for="serviceSecurity">Select this service</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-secondary" disabled>Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next: Project Details</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Project Details -->
+                            <div class="form-step" id="step2-form">
+                                <h3 class="section-title mb-4">Project Details</h3>
+                                <p class="text-muted mb-4">Tell us more about your project requirements.</p>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="projectType" class="form-label required">Project Type</label>
+                                        <select class="form-select" id="projectType" name="projectType" required>
+                                            <option value="" selected disabled>Select project type</option>
+                                            <option value="residential">Residential</option>
+                                            <option value="commercial">Commercial</option>
+                                            <option value="industrial">Industrial</option>
+                                            <option value="new-construction">New Construction</option>
+                                            <option value="renovation">Renovation/Upgrade</option>
+                                            <option value="emergency">Emergency Repair</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="urgency" class="form-label required">Urgency Level</label>
+                                        <select class="form-select" id="urgency" name="urgency" required>
+                                            <option value="" selected disabled>Select urgency</option>
+                                            <option value="emergency">Emergency (Within 24 hours)</option>
+                                            <option value="urgent">Urgent (Within 1 week)</option>
+                                            <option value="planned">Planned (Within 1 month)</option>
+                                            <option value="future">Future Planning (No specific date)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label for="projectDescription" class="form-label required">Project Description</label>
+                                        <textarea class="form-control" id="projectDescription" name="projectDescription" rows="4" placeholder="Please describe your project in detail..." required></textarea>
+                                        <div class="form-text">Be as specific as possible. Include measurements, existing conditions, and any special requirements.</div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label class="form-label">Preferred Timeline</label>
+                                        <div class="radio-group">
+                                            <div class="radio-option">
+                                                <input type="radio" id="timelineASAP" name="timeline" value="asap">
+                                                <label for="timelineASAP">ASAP</label>
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="radio" id="timeline1Week" name="timeline" value="1week">
+                                                <label for="timeline1Week">1-2 Weeks</label>
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="radio" id="timeline1Month" name="timeline" value="1month">
+                                                <label for="timeline1Month">1 Month</label>
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="radio" id="timelineFlexible" name="timeline" value="flexible" checked>
+                                                <label for="timelineFlexible">Flexible</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="prevStep(1)">Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next: Contact Info</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Contact Information -->
+                            <div class="form-step" id="step3-form">
+                                <h3 class="section-title mb-4">Contact Information</h3>
+                                <p class="text-muted mb-4">How can we reach you to discuss your quote?</p>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label required">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label required">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label required">Email Address</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label required">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <label for="address" class="form-label">Project Address (Optional)</label>
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="Street, City, State, ZIP">
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label for="contactMethod" class="form-label required">Preferred Contact Method</label>
+                                        <div class="radio-group">
+                                            <div class="radio-option">
+                                                <input type="radio" id="contactPhone" name="contactMethod" value="phone" checked>
+                                                <label for="contactPhone">Phone Call</label>
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="radio" id="contactEmail" name="contactMethod" value="email">
+                                                <label for="contactEmail">Email</label>
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="radio" id="contactWhatsApp" name="contactMethod" value="whatsapp">
+                                                <label for="contactWhatsApp">WhatsApp</label>
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="radio" id="contactAny" name="contactMethod" value="any">
+                                                <label for="contactAny">Any Method</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label for="bestTime" class="form-label">Best Time to Contact</label>
+                                        <input type="text" class="form-control" id="bestTime" name="bestTime" placeholder="e.g., Weekdays 9am-5pm, Evenings after 6pm">
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="subscribeNews" name="subscribeNews" checked>
+                                            <label class="form-check-label" for="subscribeNews">
+                                                Subscribe to our newsletter for tips, promotions, and updates (you can unsubscribe anytime)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="prevStep(2)">Previous</button>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep(4)">Next: Review & Submit</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Review & Submit -->
+                            <div class="form-step" id="step4-form">
+                                <h3 class="section-title mb-4">Review & Submit</h3>
+                                <p class="text-muted mb-4">Please review your information before submitting.</p>
+                                
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <!-- Summary will be populated by JavaScript -->
+                                        <div id="quoteSummary" class="quote-summary mb-4">
+                                            <h5 class="mb-3">Quote Request Summary</h5>
+                                            <div class="summary-item">
+                                                <span>Selected Services:</span>
+                                                <span id="summaryServices">None selected</span>
+                                            </div>
+                                            <div class="summary-item">
+                                                <span>Project Type:</span>
+                                                <span id="summaryProjectType">Not specified</span>
+                                            </div>
+                                            <div class="summary-item">
+                                                <span>Urgency:</span>
+                                                <span id="summaryUrgency">Not specified</span>
+                                            </div>
+                                            <div class="summary-item">
+                                                <span>Timeline:</span>
+                                                <span id="summaryTimeline">Not specified</span>
+                                            </div>
+                                            <div class="summary-item">
+                                                <span>Contact Name:</span>
+                                                <span id="summaryName">Not provided</span>
+                                            </div>
+                                            <div class="summary-item">
+                                                <span>Contact Email:</span>
+                                                <span id="summaryEmail">Not provided</span>
+                                            </div>
+                                            <div class="summary-item">
+                                                <span>Contact Phone:</span>
+                                                <span id="summaryPhone">Not provided</span>
+                                            </div>
+                                            <div class="summary-item">
+                                                <span>Estimated Response:</span>
+                                                <span class="text-success">Within 24 hours</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle me-2"></i>
+                                            <strong>What happens next?</strong> Our team will review your request and contact you within 24 hours to discuss your project and provide a detailed quote.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="prevStep(3)">Previous</button>
+                                    <button type="submit" class="btn btn-primary">Submit Quote Request</button>
+                                </div>
+                            </div>
+
+                            <!-- Confirmation Step (hidden initially) -->
+                            <div class="form-step" id="confirmation-step">
+                                <div class="confirmation-message">
+                                    <div class="confirmation-icon">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <h3 class="mb-3">Quote Request Submitted!</h3>
+                                    <p class="lead mb-4">Thank you for your request. We've received your information and one of our experts will contact you within 24 hours to discuss your project.</p>
+                                    <p class="mb-4">Your reference number: <strong>STQ-<span id="referenceNumber">0000</span></strong></p>
+                                    
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-8">
+                                            <div class="alert alert-success">
+                                                <h5><i class="fas fa-envelope me-2"></i>Check Your Email</h5>
+                                                <p class="mb-0">We've sent a confirmation email with your quote request details and reference number.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <p class="mb-3">For immediate assistance or urgent inquiries:</p>
+                                        <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                                            <a href="tel:+15551234567" class="btn btn-outline-primary">
+                                                <i class="fas fa-phone me-2"></i> Call Now: (555) 123-4567
+                                            </a>
+                                            <a href="https://wa.me/15551234567" target="_blank" class="whatsapp-btn">
+                                                <i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-5 pt-4 border-top">
+                                        <a href="index.html" class="btn btn-outline-secondary me-3">
+                                            <i class="fas fa-home me-2"></i> Back to Home
+                                        </a>
+                                        <a href="request-quote.html" class="btn btn-primary">
+                                            <i class="fas fa-plus me-2"></i> Request Another Quote
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+    </section>
+
+
+ <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="mb-3">SLIM<span style="color: var(--primary-color)">TECH</span></h3>
+                    <p class="mb-4">Providing reliable solar, electrical, and technology solutions for homes and businesses since 2010.</p>
+                    <div class="d-flex gap-3">
+                        <a href="https://web.facebook.com/breezle.ymcmb" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://web.facebook.com/breezle.ymcmb" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="https://web.facebook.com/breezle.ymcmb" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://web.facebook.com/breezle.ymcmb" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+               <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+    <h5 class="mb-3">Our Services</h5>
+    <ul class="list-unstyled">
+        <li class="mb-2">Solar Installations</li>
+        <li class="mb-2">Electrical Maintenance</li>
+        <li class="mb-2">Pump Installations</li>
+        <li class="mb-2">Security Systems</li>
+        <li class="mb-2">Emergency Repairs</li>
+    </ul>
+</div>
+
+<div class="col-lg-3">
+    <h5 class="mb-3">Contact Info</h5>
+    <ul class="list-unstyled">
+        <li class="mb-2">
+            <i class="fas fa-map-marker-alt me-2"></i>
+            Plot no.123, Obama, Lusaka Zambia
+        </li>
+        <li class="mb-2">
+            <i class="fas fa-phone me-2"></i>
+            +260 961 914 689
+        </li>
+        <li class="mb-2">
+            <i class="fas fa-envelope me-2"></i>
+            info@slimtechsolutions.com
+        </li>
+    </ul>
+</div>
+
+            <hr class="mt-4 mb-4" style="background-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2026 SLIM TECH Solutions. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Designed by Vula Innovation</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Quote Form JavaScript -->
+    <script>
+        // Form state management
+        let currentStep = 1;
+        const totalSteps = 4;
+        
+        // DOM Elements
+        const stepElements = document.querySelectorAll('.step');
+        const stepLineFill = document.getElementById('stepLineFill');
+        const formSteps = document.querySelectorAll('.form-step');
+        
+        // Service card interaction
+        document.querySelectorAll('.service-option-card').forEach(card => {
+            const checkbox = card.querySelector('input[type="checkbox"]');
+            
+            card.addEventListener('click', (e) => {
+                // Don't toggle if click was on the checkbox itself
+                if (e.target.type !== 'checkbox') {
+                    checkbox.checked = !checkbox.checked;
+                    updateServiceCard(card, checkbox.checked);
+                } else {
+                    updateServiceCard(card, checkbox.checked);
+                }
+            });
+            
+            checkbox.addEventListener('change', () => {
+                updateServiceCard(card, checkbox.checked);
+            });
+        });
+        
+        function updateServiceCard(card, isSelected) {
+            if (isSelected) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+        }
+        
+        // Form navigation
+        function nextStep(step) {
+            // Validate current step before proceeding
+            if (!validateStep(currentStep)) {
+                return;
+            }
+            
+            // Update UI to show next step
+            document.getElementById(`step${currentStep}-form`).classList.remove('active');
+            document.getElementById(`step${step}-form`).classList.add('active');
+            
+            // Update step indicators
+            stepElements[currentStep - 1].classList.remove('active');
+            stepElements[currentStep - 1].classList.add('completed');
+            stepElements[step - 1].classList.add('active');
+            
+            // Update progress line
+            const progressWidth = ((step - 1) / (totalSteps - 1)) * 100;
+            stepLineFill.style.width = `${progressWidth}%`;
+            
+            // Update summary if going to step 4
+            if (step === 4) {
+                updateQuoteSummary();
+            }
+            
+            currentStep = step;
+            
+            // Scroll to top of form
+            document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function prevStep(step) {
+            // Update UI to show previous step
+            document.getElementById(`step${currentStep}-form`).classList.remove('active');
+            document.getElementById(`step${step}-form`).classList.add('active');
+            
+            // Update step indicators
+            stepElements[currentStep - 1].classList.remove('active');
+            stepElements[step - 1].classList.add('active');
+            stepElements[step - 1].classList.remove('completed');
+            
+            // Update progress line
+            const progressWidth = ((step - 1) / (totalSteps - 1)) * 100;
+            stepLineFill.style.width = `${progressWidth}%`;
+            
+            currentStep = step;
+        }
+        
+        // Form validation
+        function validateStep(step) {
+            let isValid = true;
+            const form = document.getElementById('quoteForm');
+            
+            switch(step) {
+                case 1:
+                    // Check if at least one service is selected
+                    const serviceCheckboxes = document.querySelectorAll('input[name="services[]"]:checked');
+                    if (serviceCheckboxes.length === 0) {
+                        alert('Please select at least one service.');
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 2:
+                    // Validate required fields in step 2
+                    const projectType = document.getElementById('projectType');
+                    const urgency = document.getElementById('urgency');
+                    const projectDescription = document.getElementById('projectDescription');
+                    
+                    if (!projectType.value) {
+                        projectType.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        projectType.classList.remove('is-invalid');
+                    }
+                    
+                    if (!urgency.value) {
+                        urgency.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        urgency.classList.remove('is-invalid');
+                    }
+                    
+                    if (!projectDescription.value.trim()) {
+                        projectDescription.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        projectDescription.classList.remove('is-invalid');
+                    }
+                    
+                    if (!isValid) {
+                        alert('Please fill in all required fields in Project Details.');
+                    }
+                    break;
+                    
+                case 3:
+                    // Validate required fields in step 3
+                    const firstName = document.getElementById('firstName');
+                    const lastName = document.getElementById('lastName');
+                    const email = document.getElementById('email');
+                    const phone = document.getElementById('phone');
+                    
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+                    
+                    if (!firstName.value.trim()) {
+                        firstName.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        firstName.classList.remove('is-invalid');
+                    }
+                    
+                    if (!lastName.value.trim()) {
+                        lastName.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        lastName.classList.remove('is-invalid');
+                    }
+                    
+                    if (!email.value.trim() || !emailRegex.test(email.value)) {
+                        email.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        email.classList.remove('is-invalid');
+                    }
+                    
+                    if (!phone.value.trim() || !phoneRegex.test(phone.value.replace(/\s/g, ''))) {
+                        phone.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        phone.classList.remove('is-invalid');
+                    }
+                    
+                    if (!isValid) {
+                        alert('Please fill in all required fields in Contact Information.');
+                    }
+                    break;
+            }
+            
+            return isValid;
+        }
+        
+        // Update quote summary
+        function updateQuoteSummary() {
+            // Get selected services
+            const selectedServices = [];
+            document.querySelectorAll('input[name="services[]"]:checked').forEach(checkbox => {
+                switch(checkbox.value) {
+                    case 'solar': selectedServices.push('Solar Installations'); break;
+                    case 'electrical': selectedServices.push('Electrical Maintenance'); break;
+                    case 'pump': selectedServices.push('Pump Installations'); break;
+                    case 'security': selectedServices.push('Security Systems'); break;
+                }
+            });
+            
+            document.getElementById('summaryServices').textContent = 
+                selectedServices.length > 0 ? selectedServices.join(', ') : 'None selected';
+            
+            // Get project details
+            const projectType = document.getElementById('projectType');
+            const urgency = document.getElementById('urgency');
+            const timeline = document.querySelector('input[name="timeline"]:checked');
+            
+            document.getElementById('summaryProjectType').textContent = 
+                projectType.value ? projectType.options[projectType.selectedIndex].text : 'Not specified';
+            
+            document.getElementById('summaryUrgency').textContent = 
+                urgency.value ? urgency.options[urgency.selectedIndex].text : 'Not specified';
+            
+            document.getElementById('summaryTimeline').textContent = 
+                timeline ? timeline.nextElementSibling.textContent : 'Not specified';
+            
+            // Get contact information
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            document.getElementById('summaryName').textContent = 
+                firstName && lastName ? `${firstName} ${lastName}` : 'Not provided';
+            
+            document.getElementById('summaryEmail').textContent = email || 'Not provided';
+            document.getElementById('summaryPhone').textContent = phone || 'Not provided';
+        }
+        
+        // Form submission
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Final validation
+            if (!validateStep(currentStep)) {
+                return;
+            }
+            
+            // In a real application, you would send this data to a server
+            // For now, we'll simulate a successful submission
+            
+            // Generate a random reference number
+            const refNumber = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('referenceNumber').textContent = refNumber;
+            
+            // Show confirmation step
+            document.getElementById('step4-form').classList.remove('active');
+            document.getElementById('confirmation-step').classList.add('active');
+            
+            // Hide step indicators
+            document.querySelector('.step-indicator').style.display = 'none';
+            
+            // Log form data to console (for debugging)
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                if (key === 'services[]') {
+                    if (!data.services) data.services = [];
+                    data.services.push(value);
+                } else {
+                    data[key] = value;
+                }
+            });
+            
+            console.log('Quote request submitted:', data);
+            
+            // In a real application, you would send this data to your backend
+            // fetch('/api/quote-request', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(data)
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     // Handle response
+            // })
+            // .catch(error => {
+            //     console.error('Error:', error);
+            // });
+        });
+        
+        // Real-time validation for fields
+        document.querySelectorAll('.form-control, .form-select').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-invalid');
+                }
+                
+                // Specific validation for email
+                if (this.type === 'email' && this.value) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(this.value)) {
+                        this.classList.add('is-invalid');
+                    } else {
+                        this.classList.remove('is-invalid');
+                    }
+                }
+                
+                // Specific validation for phone
+                if (this.id === 'phone' && this.value) {
+                    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+                    if (!phoneRegex.test(this.value.replace(/\s/g, ''))) {
+                        this.classList.add('is-invalid');
+                    } else {
+                        this.classList.remove('is-invalid');
+                    }
+                }
+            });
+        });
+        
+        // Generate a reference number on page load (for demo)
+        window.addEventListener('load', function() {
+            // Set default values for demonstration
+            document.getElementById('firstName').value = 'John';
+            document.getElementById('lastName').value = 'Doe';
+            document.getElementById('email').value = 'john.doe@example.com';
+            document.getElementById('phone').value = '(555) 123-4567';
+            
+            // Update progress line initially
+            stepLineFill.style.width = '0%';
+        });
+    </script>
+</body>
+</html>

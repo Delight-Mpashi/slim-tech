@@ -1,0 +1,291 @@
+        :root {
+            --primary-color: #FF6B35; /* Solar orange */
+            --secondary-color: #00A8E8; /* Tech blue */
+            --dark-color: #2D3748;
+            --light-color: #F7FAFC;
+            --accent-color: #FFD166; /* Energy yellow */
+            --success-color: #06D6A0; /* Green for safety */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand span {
+            color: var(--primary-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .solar-icon {
+            background-color: rgba(255, 107, 53, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .electrical-icon {
+            background-color: rgba(0, 168, 232, 0.1);
+            color: var(--secondary-color);
+        }
+        
+        .pump-icon {
+            background-color: rgba(255, 209, 102, 0.1);
+            color: #e6b400;
+        }
+        
+        .security-icon {
+            background-color: rgba(6, 214, 160, 0.1);
+            color: var(--success-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e55a2b;
+            border-color: #e55a2b;
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #0092cc;
+            border-color: #0092cc;
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        .trust-badge {
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            background-color: var(--light-color);
+            height: 100%;
+        }
+        
+        .trust-badge i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .contact-form input, .contact-form textarea {
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            padding: 12px 15px;
+        }
+        
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.25);
+        }
+        
+        .safety-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            background-color: rgba(6, 214, 160, 0.1);
+            color: var(--success-color);
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 12px 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #1da851;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark-color) !important;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mission-card {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 20px;
+            background-color: var(--light-color);
+            padding: 25px;
+            border-radius: 10px;
+            height: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+        }
+     /* Custom form styling */
+    #contact .form-control:focus,
+    #contact .form-select:focus {
+        border-color: #FF6B35;
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.15);
+    }
+    
+    #contact .input-group-text {
+        transition: all 0.2s ease;
+    }
+    
+    #contact .input-group:focus-within .input-group-text {
+        background-color: rgba(255, 107, 53, 0.1);
+        border-color: #FF6B35;
+    }
+    
+    #contact .form-control.is-valid,
+    #contact .form-select.is-valid {
+        border-color: #28a745;
+    }
+    
+    #contact .form-control.is-invalid,
+    #contact .form-select.is-invalid {
+        border-color: #dc3545;
+    }
+    
+    #contact .card {
+        transition: transform 0.3s ease;
+    }
+    
+    #contact .card:hover {
+        transform: translateY(-4px);
+    }
+    
+    /* Contact cards hover effect */
+    #contact .bg-white:hover {
+        border-color: #FF6B35;
+    }
+    
+    /* Emergency button pulse effect */
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); }
+    }
+    
+    #contact .btn-primary[href*="tel"] {
+        animation: pulse 2s infinite;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        #contact .pe-lg-4,
+        #contact .ps-lg-4 {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+        }
+        
+        #contact .display-6 {
+            font-size: 2rem;
+        }
+    }
